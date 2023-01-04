@@ -1,33 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import {useState, createContext, useEffect} from 'react'
+import {Route, Switch} from "react-router-dom"
 import './App.css'
+import AddRecipe from './pages/AddRecipe'
+import EditRecipe from './pages/EditRecipe'
+import RecipeDetails from './pages/RecipeDetails'
+import Home from './pages/Home'
+
+export const RecipesContext = createContext([])
 
 function App() {
-  const [count, setCount] = useState(0)
+  // const [recipes, setRecipes] = useState([])
+  const recipesState = useState([])
+  const [recipes, setRecipes] = recipesState;
+
+  useEffect(() => {
+    fetch('http://localhost:9292/drinks')
+      .then(r => r.json())
+      .then(drinksFromServer => setRecipes(drinksFromServer))
+  }, [])
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <RecipesContext.Provider value={recipes}>
+      <Switch>
+        <Route path="/add"> <AddRecipe /> </Route>
+        <Route path="/edit/:id"> <EditRecipe /> </Route>
+        <Route path="/details/:id"> <RecipeDetails /> </Route>
+        <Route path="/"> <Home /> </Route>
+      </Switch>
+    </RecipesContext.Provider>
   )
 }
 
