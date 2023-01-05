@@ -1,25 +1,18 @@
-import {useState, useEffect} from "react"
+import { useContext } from "react"
+import { UserContext } from "../App"
 import {Link} from "react-router-dom"
 
 
 export default function UserMenu() {
 
-  const [users, setUsers] = useState([])
-  const [currentUser, setCurrentUser] = useState("")
-
-  useEffect(() => {
-    fetch('http://localhost:9292/users')
-      .then(r => r.json())
-      .then(usersFromServer => {setUsers(usersFromServer)
-      setCurrentUser(usersFromServer[0].id)})
-  }, [])
+  const {users, setUsers, currentUser, setCurrentUser} = useContext(UserContext)
 
   function handleUserChange(event) {
-    setCurrentUser(event.target.value)
+    setCurrentUser(parseInt(event.target.value, 10))
   }
 
   return (
-    <div>
+    <div className="user-bar">
       <Link to="/newuser">New User</Link>
       <select onChange={handleUserChange} value={currentUser}>
         {users.map(user => (
