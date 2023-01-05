@@ -36,7 +36,3 @@
 .drink-image {
   width: 200px;
 }
-
-input::placeholder {
-  color: red;
-}

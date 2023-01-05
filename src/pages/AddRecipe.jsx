@@ -1,10 +1,11 @@
-import React from 'react'
-import { useContext, useState } from "react"
-import { UserContext } from "../App"
+import React from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "../App";
+import { useHistory } from "react-router-dom";
 
-export default function AddRecipe({onAddDrink}) {
-
-  const {currentUser} = useContext(UserContext)
+export default function AddRecipe({ onAddDrink }) {
+  const { currentUser } = useContext(UserContext);
+  const history = useHistory();
 
   const defaultFormData = {
     drink_name: "",
@@ -13,36 +14,43 @@ export default function AddRecipe({onAddDrink}) {
     rating: 0,
     made: false,
     image_url: "",
-    user_id: currentUser
-  }
+  };
 
-  const [formData, setFormData] = useState(defaultFormData)
+  const [formData, setFormData] = useState(defaultFormData);
+  const [toDetailsPage, setToDetailsPage] = useState(false);
+
+  // if (toDetailsPage === true) {
+  //   return <Redirect to="/" />;
+  // }
 
   function handleChange(event) {
-    setFormData(prevFormData => {
+    setFormData((prevFormData) => {
       return {
         ...prevFormData,
-        [event.target.name]: event.target.value
-      }
-    })
+        [event.target.name]: event.target.value,
+      };
+    });
   }
 
   function handleSubmit(event) {
-    event.preventDefault()
+    event.preventDefault();
     // console.log(formData)
 
-    fetch('http://localhost:9292/drinks', {
+    fetch("http://localhost:9292/drinks", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData)
+      body: JSON.stringify({ ...formData, user_id: currentUser }),
     })
-      .then(r => r.json())
-      .then(newDrink => {
-        // onAddDrink(newDrink)
-        console.log(newDrink)
-      })
+      .then((r) => r.json())
+      .then((newDrink) => {
+        onAddDrink(newDrink);
+        console.log(newDrink);
+        // setToDetailsPage(true);
+
+        history.push(`/details/${newDrink.id}`);
+      });
   }
 
   return (
@@ -52,28 +60,28 @@ export default function AddRecipe({onAddDrink}) {
         <input
           type="text"
           name="drink_name"
-          placerholder="Drink Name"
+          placeholder="Drink Name"
           value={formData.drink_name}
           onChange={handleChange}
         />
         <input
           type="text"
           name="ingredients"
-          placerholder="Ingredients"
+          placeholder="Ingredients"
           value={formData.ingredients}
           onChange={handleChange}
         />
         <input
           type="text"
           name="instructions"
-          placerholder="Instructions"
+          placeholder="Instructions"
           value={formData.instructions}
           onChange={handleChange}
         />
         <input
           type="number"
           name="rating"
-          placerholder="Rating"
+          placeholder="Rating"
           value={formData.rating}
           onChange={handleChange}
         />
@@ -87,12 +95,12 @@ export default function AddRecipe({onAddDrink}) {
         <input
           type="text"
           name="image_url"
-          placerholder="Image URL"
+          placeholder="Image URL"
           value={formData.image_url}
           onChange={handleChange}
         />
         <button type="submit">Add Drink</button>
       </form>
     </div>
-  )
+  );
 }

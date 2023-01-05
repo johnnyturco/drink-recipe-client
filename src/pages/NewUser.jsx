@@ -1,45 +1,44 @@
-import React, { useState } from "react"
-import {Redirect} from "react-router-dom"
+import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 
-export default function NewUser({onNewUserSubmit}) {
-
+export default function NewUser({ onNewUserSubmit }) {
   const defaultFormData = {
     name: "",
-    email: ""
-  }
+    email: "",
+  };
 
-  const [formData, setFormData] = useState(defaultFormData)
-  const [toHomePage, setToHomePage] = useState(false)
+  const [formData, setFormData] = useState(defaultFormData);
+  const [toHomePage, setToHomePage] = useState(false);
 
-  if(toHomePage === true) {
-    return <Redirect to="/" />
+  if (toHomePage === true) {
+    return <Redirect to="/" />;
   }
 
   function handleChange(event) {
-    setFormData(prevFormData => {
+    setFormData((prevFormData) => {
       return {
         ...prevFormData,
-        [event.target.name]: event.target.value
-      }
-    })
+        [event.target.name]: event.target.value,
+      };
+    });
   }
 
   function handleSubmit(event) {
-    event.preventDefault()
+    event.preventDefault();
     // console.log(formData)
 
-    fetch('http://localhost:9292/users', {
+    fetch("http://localhost:9292/users", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData)
+      body: JSON.stringify(formData),
     })
-      .then(r => r.json())
-      .then(newUser => {
-        onNewUserSubmit(newUser)
-        setToHomePage(true)
-      })
+      .then((r) => r.json())
+      .then((newUser) => {
+        onNewUserSubmit(newUser);
+        setToHomePage(true);
+      });
   }
 
   return (
@@ -63,5 +62,5 @@ export default function NewUser({onNewUserSubmit}) {
         <button type="submit">Create User</button>
       </form>
     </div>
-  )
+  );
 }

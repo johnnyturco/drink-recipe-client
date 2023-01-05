@@ -1,16 +1,16 @@
-import React, {useContext} from 'react'
-import {RecipesContext} from "../App"
+import React, { useContext } from "react";
+import { RecipesContext } from "../App";
 
-export default function RecipeCard({recipe}) {
-
-  const {setRecipes} = useContext(RecipesContext)
+export default function RecipeCard({ recipe }) {
+  const { setRecipes } = useContext(RecipesContext);
 
   function handleDelete() {
-    fetch(`http://localhost:9292/drinks/${recipe.id}`, { // need to finish RecipeContext to define id
-      method: "DELETE"
-    })
+    fetch(`http://localhost:9292/drinks/${recipe.id}`, {
+      // need to finish RecipeContext to define id
+      method: "DELETE",
+    });
 
-    setRecipes(recipes => recipes.filter(r => r.id !== recipe.id))
+    setRecipes((recipes) => recipes.filter((r) => r.id !== recipe.id));
   }
 
   return (
@@ -20,11 +20,14 @@ export default function RecipeCard({recipe}) {
       <div>
         <div>
           <h2>Ingredients</h2>
-          <ul>{recipe.ingredients.split("\n").map(ingredient => (
-            <li key={ingredient}>{ingredient}</li>))}</ul>
+          <ul>
+            {recipe.ingredients.split("\n").map((ingredient) => (
+              <li key={ingredient}>{ingredient}</li>
+            ))}
+          </ul>
         </div>
         <div>
-            <img className="drink-image" src={recipe.image_url} />
+          <img className="drink-image" src={recipe.image_url} />
         </div>
       </div>
 
@@ -34,7 +37,10 @@ export default function RecipeCard({recipe}) {
       <p>Rating: {recipe.rating}/10</p>
 
       <p>{recipe.made ? "Made ✅" : "Not Made ❌"}</p>
-      <button onClick={handleDelete}>Remove</button>
+      <div>
+        <button onClick={handleDelete}>Remove</button>
+        <button>Edit</button>
+      </div>
     </section>
-  )
+  );
 }
