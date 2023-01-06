@@ -4,6 +4,10 @@
   padding: 2rem;
 }
 
+a {
+  margin: 0 1rem;
+}
+
 .user-bar {
   display: flex;
   justify-content: flex-end;
@@ -35,4 +39,24 @@
 
 .drink-image {
   width: 200px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin: 0 auto;
+}
+
+.form input, button {
+  margin: 0.5rem 0;
+}
+
+.form button {
+  width: 150px;
+  margin: 1rem auto;
+}
+
+.details .recipe-card {
+  margin: 0 auto;
 }

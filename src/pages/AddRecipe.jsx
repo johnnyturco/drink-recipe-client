@@ -20,10 +20,6 @@ export default function AddRecipe() {
   const [formData, setFormData] = useState(defaultFormData);
   const [toDetailsPage, setToDetailsPage] = useState(false);
 
-  // if (toDetailsPage === true) {
-  //   return <Redirect to="/" />;
-  // }
-
   function handleChange(event) {
     setFormData((prevFormData) => {
       return {
@@ -58,9 +54,9 @@ export default function AddRecipe() {
   }
 
   return (
-    <div className="add-drink-form">
+    <div>
       <h1>Add Drink</h1>
-      <form onSubmit={handleSubmit}>
+      <form className="form" onSubmit={handleSubmit}>
         <input
           type="text"
           name="drink_name"
@@ -89,13 +85,6 @@ export default function AddRecipe() {
           value={formData.rating}
           onChange={handleChange}
         />
-        {/* <input
-          type="text"
-          name="ingredients"
-          placerholder="Ingredients"
-          value={formData.ingredients}
-          onChange={handleChange}
-        /> */}
         <input
           type="text"
           name="image_url"

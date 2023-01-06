@@ -42,20 +42,20 @@ export default function NewUser({ onNewUserSubmit }) {
   }
 
   return (
-    <div className="new-user-form">
+    <div>
       <h1>New User</h1>
-      <form onSubmit={handleSubmit}>
+      <form className="form" onSubmit={handleSubmit}>
         <input
           type="text"
           name="name"
-          placerholder="Name"
+          placeholder="Name"
           value={formData.name}
           onChange={handleChange}
         />
         <input
           type="text"
           name="email"
-          placerholder="Email"
+          placeholder="Email"
           value={formData.email}
           onChange={handleChange}
         />

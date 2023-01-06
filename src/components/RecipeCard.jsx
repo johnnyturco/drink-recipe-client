@@ -42,7 +42,6 @@ export default function RecipeCard({ recipe }) {
 
       <p>Rating: {recipe.rating}/10</p>
 
-      <p>{recipe.made ? "Made ✅" : "Not Made ❌"}</p>
       <div>
         <button onClick={handleDelete}>Remove</button>
         <button onClick={handleEdit}>Edit</button>

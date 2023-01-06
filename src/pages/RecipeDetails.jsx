@@ -13,5 +13,9 @@ export default function RecipeDetails() {
   });
   // console.log(drink);
 
-  return <div>{drink ? <RecipeCard recipe={drink} /> : "Drink Not Found"}</div>;
+  return (
+    <div className="details">
+      {drink ? <RecipeCard recipe={drink} /> : "Drink Not Found"}
+    </div>
+  );
 }
