@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
 import { RecipesContext } from "../App";
+import { useHistory } from "react-router-dom";
 
 export default function RecipeCard({ recipe }) {
   const { setRecipes } = useContext(RecipesContext);
+  const history = useHistory();
 
   function handleDelete() {
     fetch(`http://localhost:9292/drinks/${recipe.id}`, {
@@ -11,6 +13,10 @@ export default function RecipeCard({ recipe }) {
     });
 
     setRecipes((recipes) => recipes.filter((r) => r.id !== recipe.id));
+  }
+
+  function handleEdit() {
+    history.push(`/edit/${recipe.id}`);
   }
 
   return (
@@ -39,7 +45,7 @@ export default function RecipeCard({ recipe }) {
       <p>{recipe.made ? "Made ✅" : "Not Made ❌"}</p>
       <div>
         <button onClick={handleDelete}>Remove</button>
-        <button>Edit</button>
+        <button onClick={handleEdit}>Edit</button>
       </div>
     </section>
   );

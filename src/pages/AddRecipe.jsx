@@ -1,10 +1,11 @@
 import React from "react";
 import { useContext, useState } from "react";
-import { UserContext } from "../App";
+import { RecipesContext, UserContext } from "../App";
 import { useHistory } from "react-router-dom";
 
-export default function AddRecipe({ onAddDrink }) {
+export default function AddRecipe() {
   const { currentUser } = useContext(UserContext);
+  const { setRecipes } = useContext(RecipesContext);
   const history = useHistory();
 
   const defaultFormData = {
@@ -32,9 +33,14 @@ export default function AddRecipe({ onAddDrink }) {
     });
   }
 
+  function handleAddDrink(newDrink) {
+    setRecipes((prevRecipes) => {
+      return [...prevRecipes, newDrink];
+    });
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
-    // console.log(formData)
 
     fetch("http://localhost:9292/drinks", {
       method: "POST",
@@ -45,10 +51,8 @@ export default function AddRecipe({ onAddDrink }) {
     })
       .then((r) => r.json())
       .then((newDrink) => {
-        onAddDrink(newDrink);
+        handleAddDrink(newDrink);
         console.log(newDrink);
-        // setToDetailsPage(true);
-
         history.push(`/details/${newDrink.id}`);
       });
   }

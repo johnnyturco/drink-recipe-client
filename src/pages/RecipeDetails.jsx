@@ -11,7 +11,7 @@ export default function RecipeDetails() {
   const drink = recipes.find((recipe) => {
     return recipe.id === parseInt(params.id);
   });
-  console.log(drink);
+  // console.log(drink);
 
   return <div>{drink ? <RecipeCard recipe={drink} /> : "Drink Not Found"}</div>;
 }

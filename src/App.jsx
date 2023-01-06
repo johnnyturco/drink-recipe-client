@@ -6,6 +6,7 @@ import EditRecipe from "./pages/EditRecipe";
 import RecipeDetails from "./pages/RecipeDetails";
 import Home from "./pages/Home";
 import NewUser from "./pages/NewUser";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 export const RecipesContext = createContext([]);
 export const UserContext = createContext(null);
@@ -41,37 +42,27 @@ function App() {
     });
   }
 
-  function handleAddDrink(newDrink) {
-    setRecipes((prevRecipes) => {
-      return [...prevRecipes, newDrink];
-    });
-  }
-
   return (
     <UserContext.Provider
       value={{ users, setUsers, currentUser, setCurrentUser }}
     >
       <RecipesContext.Provider value={{ userRecipes, recipes, setRecipes }}>
+        <Link to="/">Home</Link>
         <Switch>
           <Route path="/add">
-            {" "}
-            <AddRecipe onAddDrink={handleAddDrink} />{" "}
+            <AddRecipe />
           </Route>
           <Route path="/edit/:id">
-            {" "}
-            <EditRecipe />{" "}
+            <EditRecipe />
           </Route>
           <Route path="/details/:id">
-            {" "}
-            <RecipeDetails />{" "}
+            <RecipeDetails />
           </Route>
           <Route path="/newuser">
-            {" "}
-            <NewUser onNewUserSubmit={handleNewUserSubmit} />{" "}
+            <NewUser onNewUserSubmit={handleNewUserSubmit} />
           </Route>
           <Route path="/">
-            {" "}
-            <Home />{" "}
+            <Home />
           </Route>
         </Switch>
       </RecipesContext.Provider>
