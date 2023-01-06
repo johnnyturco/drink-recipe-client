@@ -2,7 +2,7 @@ import React from "react";
 
 export default function RecipeForm({recipe, submitButton, handleChange, handleSubmit}) {
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="form" onSubmit={handleSubmit}>
       <input
         type="text"
         name="drink_name"
