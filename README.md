@@ -1,7 +1,7 @@
 # Phase 3 Project
 
 ## Project Pitch
-A drinks recipe app where users can vote on their favorite drinks.
+An app that allows users to track drink recipes.
 
 ## User Stories
 As a user, I can…
